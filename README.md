@@ -2,6 +2,8 @@
 
 这是屿声映画 V1 的静态交互原型，包含 24 个页面，可用于产品评审与体验演示。
 
+在线体验：https://wyf10171.github.io/yusheng-prototype/
+
 ## 体验
 
 站点入口为 `index.html`，支持桌面和手机浏览器。所有页面使用相对路径，可直接部署到 GitHub Pages 的项目站点。
@@ -35,3 +37,5 @@ node 构建.cjs
 ```
 
 `说明.md` 包含更完整的页面清单、实现边界和素材信息。Lucide 图标许可保留在 `vendor/LICENSE.lucide`。
+
+浏览器验证使用本机 Microsoft Edge，执行 `node 验证/浏览器验证.cjs`。默认验证本地页面；设置环境变量 `BASE_URL` 可验证线上站点，`TEST_PROXY` 可指定浏览器代理。

@@ -3,11 +3,13 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { pathToFileURL } = require("node:url");
 const root=path.resolve(__dirname,"..");
-const url=(name)=>pathToFileURL(path.join(root,`${name}.html`)).href;
+const url=(name)=>process.env.BASE_URL
+  ? new URL(`${name}.html`,process.env.BASE_URL).href
+  : pathToFileURL(path.join(root,`${name}.html`)).href;
 const errors=[],results=[];
 function check(value,label){if(!value)throw new Error(label);results.push(label)}
 (async()=>{
-  const browser=await chromium.launch({channel:"msedge",headless:true,args:["--use-fake-ui-for-media-stream","--use-fake-device-for-media-stream"]});
+  const browser=await chromium.launch({channel:"msedge",headless:true,args:["--use-fake-ui-for-media-stream","--use-fake-device-for-media-stream"],...(process.env.TEST_PROXY?{proxy:{server:process.env.TEST_PROXY}}:{})});
   const context=await browser.newContext({viewport:{width:1440,height:1100},reducedMotion:"reduce"});
   const p=await context.newPage();
   p.on("pageerror",e=>errors.push(e.message));
